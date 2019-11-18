@@ -31,7 +31,7 @@
     </div>
   </nav>
 
-  <div class="jumbotron" id="submitSection" style="display:block;">
+  <div class="jumbotron" id="submitSection" style="display:flex; flex-direction: row;">
     <div class="container">
       <h2>Transaction Information</h2>
       <br>
@@ -73,8 +73,16 @@
       <button class="btn btn-primary submit-txn">SUBMIT</button>
       <button class="btn btn-primary evaluate-txn">EVALUATE</button>
     </div>
+    <div class="container" style="display:flex; flex-direction: column;">
+      <h2>Transaction Output</h2>
+      <br>
+      <code style="display: flex; background-color: white; flex-grow: 1;">
+        <div class="response" style="padding: 2rem;">
+          <p>  Code output</p>
+        </div>
+      </code>
+    </div>
   </div>
-
 </body>
 </html>
 

@@ -42,16 +42,17 @@ function submitTransaction(isSubmit) {
     success: function(data) {
       //check data for error
       if (data.error) {
-        alert(data.error);
+        $('.response').html(data.error);
         return;
       } else {
-        alert(JSON.stringify(data));
+
+        $('.response').html(JSON.stringify(data));
       }
 
     },
     error: function(jqXHR, textStatus, errorThrown) {
       //reload on error
-      alert(errorThrown)
+      $('.response').html(errorThrown)
       console.log(errorThrown);
       console.log(textStatus);
       console.log(jqXHR);

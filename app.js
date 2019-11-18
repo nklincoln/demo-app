@@ -92,11 +92,11 @@ app.post('/api/submitTransaction', async function(req, res) {
 
     let response;
     if (req.body.isSubmit) {
-      console.log(`Submitting smart contract function ${func}, with args ${[...funcArgs]}`);
+      console.debug(`Submitting smart contract function ${func}, with args ${[...funcArgs]}`);
       await contract.submitTransaction(func, ...funcArgs);
       response = `Successfully submitted smart contract function ${func}`;
     } else {
-      console.log(`Evaluating smart contract function ${func}, with args ${[...funcArgs]}`);
+      console.debug(`Evaluating smart contract function ${func}, with args ${[...funcArgs]}`);
       response = await contract.evaluateTransaction(func, ...funcArgs);
     }
     
@@ -104,7 +104,6 @@ app.post('/api/submitTransaction', async function(req, res) {
       success: response.toString()
     });
   } catch (error) {
-    console.error(`Failed with error: ${error}`);
     res.json({
       error: JSON.stringify(error)
     });
@@ -121,5 +120,5 @@ if (process.env.VCAP_APPLICATION) {
 
 //run app on port
 app.listen(port, function() {
-  console.log('app running on port: %d', port);
+  console.log(`Application running on: http://localhost:${port}`);
 });
