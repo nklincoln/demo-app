@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>VSCode Demo</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/home">VS Code Demo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="/transact.html">Transact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-4" style="padding-bottom: 2rem;">VS Code Demo</h1>
+      <p>This web application demonstrates a the interaction with a Fabric network using VS Code exported components</p>
+      <p><a class="btn btn-primary btn-lg" href="https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform" role="button">Learn more &raquo;</a></p>
+      <p>The package "fabric-sdk-node" is used to connect and transact with an existing Hyperledger Fabric network.</p>
+      <p><a class="btn btn-primary btn-lg" href="https://hyperledger-fabric.readthedocs.io/en/latest/write_first_app.html" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="container panel">
+
+    <div class="row">
+      <div>
+        <p>This demo assumes that a network exists, and has been connected to via VS Code, from which a connection profile and wallet have been exported. Please note that
+          if you tear down your network, you will need to re-export the wallet as crypto-material is regenerated each time the network is created.
+        </p>
+      </div>
+      <div>
+        <h2>Submit Transaction</h2>
+        <p>Submitting a transaction will result on the contract method being run on Hyperledger Fabric Peers as required by the endorsement policy and appended to the ledger by the ordering service.</p>
+      </div>
+      <div>
+        <h2>Evaluate Transaction</h2>
+        <p>Evaluating a transaction will not include interaction with the ordering service, and consequently will not result in appending to the leger. </p>
+      </div>
+      <div>
+        <p>Click here to send transactions to a Fabric network. </p>
+        <p>
+          <a class="btn btn-secondary" href="/transact" role="button">Transact &raquo;</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="featurette-divider">
+
+
+</body>
+
+</html>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
