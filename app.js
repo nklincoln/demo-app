@@ -28,16 +28,27 @@ app.get('/transact', function(req, res) {
 
 //post call to submit transaction
 app.post('/api/submitTransaction', async function(req, res) {
-  //print variables
-  console.log('Using params:' + JSON.stringify(req.body));
 
   // Create Wallet
-  const wallet = new FileSystemWallet(req.body.walletPath);
+  let wallet;
+  if (fs.existsSync(req.body.walletPath)) {
+    wallet = new FileSystemWallet(req.body.walletPath);
+  } else {
+    const msg = `Invalid wallet path: ${req.body.walletPath}`;
+    res.json({
+      error: msg
+    });
+    return;
+  }
 
   // retrieve Id from wallet
   const hasUser = await wallet.exists(req.body.idName);
   if (!hasUser) {
-      console.error(`No user identity "${req.body.idName}" found in wallet`);
+      const msg = `No user identity "${req.body.idName}" found in wallet`;
+      res.json({
+        error: msg
+      });
+      return;
   }
 
   // Retrieve CCP
@@ -46,7 +57,11 @@ app.post('/api/submitTransaction', async function(req, res) {
     const ccpJSON = fs.readFileSync(req.body.ccp, 'utf8');
     connectionProfile = JSON.parse(ccpJSON);
   } else {
-    console.error(`Path to connection profile invalid: ${req.body.ccp}`)
+    const msg = `Path to connection profile invalid: ${req.body.ccp}`;
+    res.json({
+      error: msg
+    });
+    return;
   }
 
   // Create and connect Gateway
@@ -64,14 +79,10 @@ app.post('/api/submitTransaction', async function(req, res) {
   try {
     // Connect the gateway
     await gateway.connect(connectionProfile, opts);
-    console.log(`Successfully connected to gateway`);
 
     // Extract network and contract
     const network = await gateway.getNetwork(req.body.channelName);
-    console.log(`Successfully retrieved network from channel ${req.body.channelName}`);
-
     const contract = await network.getContract(req.body.contractName);
-    console.log(`Successfully retrieved contract ${req.body.contractName}`);
 
     // Submit the txn  
     const args = req.body.args;
@@ -82,12 +93,11 @@ app.post('/api/submitTransaction', async function(req, res) {
     let response;
     if (req.body.isSubmit) {
       console.log(`Submitting smart contract function ${func}, with args ${[...funcArgs]}`);
-      response = await contract.submitTransaction(func, ...funcArgs);
-      console.log(`Successfully submitted smart contract function ${func}`);
+      await contract.submitTransaction(func, ...funcArgs);
+      response = `Successfully submitted smart contract function ${func}`;
     } else {
       console.log(`Evaluating smart contract function ${func}, with args ${[...funcArgs]}`);
       response = await contract.evaluateTransaction(func, ...funcArgs);
-      console.log(`Successfully evaluated smart contract function ${func}, with response ${response.toString()}`);
     }
     
     res.json({
@@ -95,7 +105,9 @@ app.post('/api/submitTransaction', async function(req, res) {
     });
   } catch (error) {
     console.error(`Failed with error: ${error}`);
-    throw error;
+    res.json({
+      error: JSON.stringify(error)
+    });
   } finally {
     await gateway.disconnect();
   }

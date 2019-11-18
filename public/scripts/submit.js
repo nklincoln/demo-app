@@ -45,20 +45,17 @@ function submitTransaction(isSubmit) {
         alert(data.error);
         return;
       } else {
-        console.log(`response: ${JSON.stringify(data.success)}`);
+        alert(JSON.stringify(data));
       }
 
     },
     error: function(jqXHR, textStatus, errorThrown) {
       //reload on error
-      alert("Error: Try again")
+      alert(errorThrown)
       console.log(errorThrown);
       console.log(textStatus);
       console.log(jqXHR);
     },
-    complete: function() {
-
-    }
   });
             
 }
